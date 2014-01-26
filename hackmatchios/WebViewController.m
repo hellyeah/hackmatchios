@@ -88,8 +88,13 @@
 
 - (IBAction)hellYeah:(UIBarButtonItem *)sender {
     //save interest interaction object
+    PFObject *hellYeah = [PFObject objectWithClassName:@"HellYeah"];
+    hellYeah[@"hackerURL"] = @"http://rjvir.com";
+    hellYeah[@"companyURL"] = [self.startups objectAtIndex:self.index];
+    [hellYeah saveInBackground];
     //then do nextWebView
     [self nextWebView];
+
 }
 
 @end
