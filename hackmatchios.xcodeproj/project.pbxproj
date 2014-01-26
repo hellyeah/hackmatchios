@@ -30,7 +30,6 @@
 		6FE92949189527840089AFB9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE92948189527840089AFB9 /* StoreKit.framework */; };
 		6FE9294B1895278A0089AFB9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE9294A1895278A0089AFB9 /* SystemConfiguration.framework */; };
 		6FE9294D189527F10089AFB9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE9294C189527F10089AFB9 /* Parse.framework */; };
-		6FE929501895284C0089AFB9 /* BlogPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9294F1895284C0089AFB9 /* BlogPost.m */; };
 		6FE92953189528820089AFB9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE92952189528820089AFB9 /* WebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -72,8 +71,6 @@
 		6FE92948189527840089AFB9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6FE9294A1895278A0089AFB9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6FE9294C189527F10089AFB9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		6FE9294E1895284C0089AFB9 /* BlogPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogPost.h; sourceTree = "<group>"; };
-		6FE9294F1895284C0089AFB9 /* BlogPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogPost.m; sourceTree = "<group>"; };
 		6FE92951189528820089AFB9 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		6FE92952189528820089AFB9 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,8 +156,6 @@
 				6FE92915189525530089AFB9 /* AppDelegate.m */,
 				6FE92951189528820089AFB9 /* WebViewController.h */,
 				6FE92952189528820089AFB9 /* WebViewController.m */,
-				6FE9294E1895284C0089AFB9 /* BlogPost.h */,
-				6FE9294F1895284C0089AFB9 /* BlogPost.m */,
 				6FE92917189525530089AFB9 /* Main.storyboard */,
 				6FE9291D189525530089AFB9 /* Images.xcassets */,
 				6FE9290C189525530089AFB9 /* Supporting Files */,
@@ -297,7 +292,6 @@
 				6FE92953189528820089AFB9 /* WebViewController.m in Sources */,
 				6FE92916189525530089AFB9 /* AppDelegate.m in Sources */,
 				6FE92912189525530089AFB9 /* main.m in Sources */,
-				6FE929501895284C0089AFB9 /* BlogPost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,10 +11,13 @@
 
 @interface WebViewController : UIViewController
 
-@property (nonatomic, strong) NSMutableArray *blogPosts;
-@property (strong, nonatomic) NSURL *blogPostURL;
+//counter
+@property NSUInteger index;
+@property (nonatomic, strong) NSMutableArray *startups;
+@property (strong, nonatomic) NSURL *startupURL;
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 //- (IBAction)next:(id)sender;
+- (IBAction)nextWebView:(UIBarButtonItem *)sender;
 
 
 @end

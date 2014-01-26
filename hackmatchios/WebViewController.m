@@ -7,7 +7,6 @@
 //
 
 #import "WebViewController.h"
-#import "BlogPost.h"
 
 
 @interface WebViewController ()
@@ -28,26 +27,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.index = 0;
     //self.navigationController.toolbarHidden = NO;
     //hard code first value
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
 	[self.webView loadRequest:urlRequest];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"posts"];
+    PFQuery *query = [PFQuery queryWithClassName:@"post"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
             NSLog(@"Successfully retrieved %d scores.", objects.count);
-            self.blogPosts = [NSMutableArray array];
+            self.startups = [NSMutableArray array];
             
-            for (NSDictionary *bpDictionary in objects) {
+            for (NSDictionary *startupDictionary in objects) {
                 //NSLog(@"%@", [NSURL URLWithString:[bpDictionary objectForKey:@"url"]]);
-                BlogPost *blogPost = [BlogPost blogPostWithTitle:[bpDictionary objectForKey:@"title"]];
-                blogPost.author = [bpDictionary objectForKey:@"author"];
-                blogPost.thumbnail = [bpDictionary objectForKey:@"thumbnail"];
-                blogPost.date = [bpDictionary objectForKey:@"date"];
-                blogPost.url = [NSURL URLWithString:[bpDictionary objectForKey:@"url"]];
-                [self.blogPosts addObject:blogPost];
+                [self.startups addObject:[NSURL URLWithString:[startupDictionary objectForKey:@"url"]]];
                 //refresh data
             }
             // Do something with the found objects
@@ -70,4 +65,10 @@
 //- (IBAction)next:(id)sender {
     //go to the next webview
 //}
+- (IBAction)nextWebView:(UIBarButtonItem *)sender {
+    self.index++;
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
+	[self.webView loadRequest:urlRequest];
+    NSLog(@"%@", [self.startups objectAtIndex:self.index]);
+}
 @end
