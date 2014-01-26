@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) NSURL *blogPostURL;
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
-
 //- (IBAction)next:(id)sender;
 
 
