@@ -25,10 +25,13 @@
     return self;
 }
 
-/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //self.navigationController.toolbarHidden = NO;
+    //hard code first value
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
+	[self.webView loadRequest:urlRequest];
     
     PFQuery *query = [PFQuery queryWithClassName:@"posts"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -46,7 +49,6 @@
                 blogPost.url = [NSURL URLWithString:[bpDictionary objectForKey:@"url"]];
                 [self.blogPosts addObject:blogPost];
                 //refresh data
-                [self.tableView reloadData];
             }
             // Do something with the found objects
             for (PFObject *object in objects) {
@@ -57,16 +59,6 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-}
-*/
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.navigationController.toolbarHidden = NO;
-    //hard code first value
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
-	[self.webView loadRequest:urlRequest];
 }
 
 - (void)didReceiveMemoryWarning
