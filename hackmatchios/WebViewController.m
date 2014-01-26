@@ -64,7 +64,7 @@
 {
     [super viewDidLoad];
     //hard code first value
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[[NSURL init] initWithString:@"http://lob.com"]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
 	[self.webView loadRequest:urlRequest];
 }
 
