@@ -16,19 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFv-KT-5Zx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFv-KT-5Zx">
+                                <rect key="frame" x="0.0" y="44" width="320" height="392"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xzD-AC-UHY">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzD-AC-UHY">
                                 <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="Item" id="PyE-Na-rCo"/>
                                 </items>
                             </toolbar>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g2B-sj-FuB">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2B-sj-FuB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
@@ -37,6 +37,18 @@
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xzD-AC-UHY" firstAttribute="trailing" secondItem="g2B-sj-FuB" secondAttribute="trailing" id="2Fh-rK-UQQ"/>
+                            <constraint firstItem="xzD-AC-UHY" firstAttribute="leading" secondItem="GFv-KT-5Zx" secondAttribute="leading" id="7eV-Ge-xvD"/>
+                            <constraint firstItem="GFv-KT-5Zx" firstAttribute="top" secondItem="g2B-sj-FuB" secondAttribute="top" constant="44" id="AEl-r0-mZU"/>
+                            <constraint firstItem="GFv-KT-5Zx" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="44" id="M5w-Cz-Jcz"/>
+                            <constraint firstItem="xzD-AC-UHY" firstAttribute="trailing" secondItem="GFv-KT-5Zx" secondAttribute="trailing" id="Rzh-kG-I7A"/>
+                            <constraint firstItem="xzD-AC-UHY" firstAttribute="leading" secondItem="g2B-sj-FuB" secondAttribute="leading" id="W2H-85-j88"/>
+                            <constraint firstItem="xzD-AC-UHY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="amk-zN-G0q"/>
+                            <constraint firstAttribute="trailing" secondItem="xzD-AC-UHY" secondAttribute="trailing" id="df0-b4-8OM"/>
+                            <constraint firstAttribute="bottom" secondItem="xzD-AC-UHY" secondAttribute="bottom" id="s1f-n0-K3a"/>
+                            <constraint firstItem="xzD-AC-UHY" firstAttribute="bottom" secondItem="GFv-KT-5Zx" secondAttribute="bottom" constant="44" id="tBh-zw-GMv"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="bvs-yF-Crl"/>
                     <connections>
