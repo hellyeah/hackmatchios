@@ -65,8 +65,13 @@
 //- (IBAction)next:(id)sender {
     //go to the next webview
 //}
+
 - (void) nextWebView {
-    self.index++;
+    if (self.index >= self.startups.count - 1) {
+        self.index = 0;
+    } else {
+        self.index++;
+    }
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
 	[self.webView loadRequest:urlRequest];
 
@@ -86,6 +91,5 @@
     //then do nextWebView
     [self nextWebView];
 }
-
 
 @end
