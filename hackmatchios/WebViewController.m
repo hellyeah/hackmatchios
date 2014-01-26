@@ -65,10 +65,27 @@
 //- (IBAction)next:(id)sender {
     //go to the next webview
 //}
-- (IBAction)nextWebView:(UIBarButtonItem *)sender {
+- (void) nextWebView {
     self.index++;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
 	[self.webView loadRequest:urlRequest];
+
+}
+
+- (IBAction)next:(UIBarButtonItem *)sender {
+    //increment to the next startup
+    //self.index++;
+    //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
+	//[self.webView loadRequest:urlRequest];
+    [self nextWebView];
     NSLog(@"%@", [self.startups objectAtIndex:self.index]);
 }
+
+- (IBAction)hellYeah:(UIBarButtonItem *)sender {
+    //save interest interaction object
+    //then do nextWebView
+    [self nextWebView];
+}
+
+
 @end

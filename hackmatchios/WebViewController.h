@@ -17,7 +17,8 @@
 @property (strong, nonatomic) NSURL *startupURL;
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 //- (IBAction)next:(id)sender;
-- (IBAction)nextWebView:(UIBarButtonItem *)sender;
+- (IBAction)next:(UIBarButtonItem *)sender;
+- (IBAction)hellYeah:(UIBarButtonItem *)sender;
 
 
 @end

@@ -23,7 +23,12 @@
                                 <items>
                                     <barButtonItem title="Next" id="PyE-Na-rCo">
                                         <connections>
-                                            <action selector="nextWebView:" destination="vXZ-lx-hvc" id="5dr-bw-IrA"/>
+                                            <action selector="next:" destination="vXZ-lx-hvc" id="kJl-a9-M0P"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Hell yeah" id="agf-Qt-Cwd">
+                                        <connections>
+                                            <action selector="hellYeah:" destination="vXZ-lx-hvc" id="0Ub-71-gKJ"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
