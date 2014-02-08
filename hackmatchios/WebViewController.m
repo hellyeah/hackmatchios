@@ -69,23 +69,15 @@
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     swipeLeft.delegate = self;
     [self.webView addGestureRecognizer:swipeLeft];
-    
-    //gesture recognizer
-    //UISwipeGestureRecognizer* right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight)];
-    //right.direction = UISwipeGestureRecognizerDirectionRight;
-    //[self addGestureRecognizer:swipeRight];
-    
-    //UISwipeGestureRecognizer* left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
-    //left.direction = UISwipeGestureRecognizerDirectionLeft;
-    //[self addGestureRecognizer:swipeLeft];
-    // Add gesture reconizers
-//    UISwipeGestureRecognizer* leftSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)]];
-//    leftSwipe.numberOfTouchesRequired = 1;
-//    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
-//    [self.webView addGestureRecognizer:leftSwipe];
 }
 
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    NSLog(@"web view did start load");
+}
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"web view load error");
+}
 
 - (void)didReceiveMemoryWarning
 {
