@@ -59,7 +59,33 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.delegate = self;
+    [self.webView addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    swipeLeft.delegate = self;
+    [self.webView addGestureRecognizer:swipeLeft];
+    
+    //gesture recognizer
+    //UISwipeGestureRecognizer* right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight)];
+    //right.direction = UISwipeGestureRecognizerDirectionRight;
+    //[self addGestureRecognizer:swipeRight];
+    
+    //UISwipeGestureRecognizer* left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
+    //left.direction = UISwipeGestureRecognizerDirectionLeft;
+    //[self addGestureRecognizer:swipeLeft];
+    // Add gesture reconizers
+//    UISwipeGestureRecognizer* leftSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)]];
+//    leftSwipe.numberOfTouchesRequired = 1;
+//    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+//    [self.webView addGestureRecognizer:leftSwipe];
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -79,7 +105,19 @@
     }
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
 	[self.webView loadRequest:urlRequest];
+    
+    NSLog(@"%@", [self.startups objectAtIndex:self.index]);
+}
 
+- (void) hellYeahNextWebView {
+    //save interest interaction object
+    PFObject *hellYeah = [PFObject objectWithClassName:@"interest"];
+    //substitue with the email they enter at the beginning
+    hellYeah[@"contactEmail"] = @"raj@rjvir.com";
+    hellYeah[@"startupURL"] = [[self.startups objectAtIndex:self.index] absoluteString];
+    [hellYeah saveInBackground];
+    //then do nextWebView
+    [self nextWebView];
 }
 
 - (IBAction)next:(UIBarButtonItem *)sender {
@@ -88,7 +126,6 @@
     //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
 	//[self.webView loadRequest:urlRequest];
     [self nextWebView];
-    NSLog(@"%@", [self.startups objectAtIndex:self.index]);
 }
 
 - (IBAction)hellYeah:(UIBarButtonItem *)sender {
@@ -106,19 +143,42 @@
     self.YourView.frame = CGRectMake(250, 45, 500, 960);
     [UIView commitAnimations];
      */
-    //
+    //try two
+    /*
+    MyModalViewController *targetController = [[[MyModalViewController alloc] init] autorelease];
     
+    targetController.modalPresentationStyle = UIModalPresentationFormSheet;
+    targetController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal; //transition shouldn't matter
+    [self presentModalViewController:targetController animated:YES];
     
+    targetController.view.superview.frame = CGRectMake(0, 0, 200, 200);//it's important to do this after
     
-    
-    //save interest interaction object
-    PFObject *hellYeah = [PFObject objectWithClassName:@"interest"];
-    //substitue with the email they enter at the beginning
-    hellYeah[@"contactEmail"] = @"raj@rjvir.com";
-    hellYeah[@"startupURL"] = [[self.startups objectAtIndex:self.index] absoluteString];
-    [hellYeah saveInBackground];
-    //then do nextWebView
+    presentModalViewController targetController.view.superview.center = self.view.center;
+     */
+    [self hellYeahNextWebView];
+
+}
+
+// MARK: - Gesture Recognizers
+- (void)swipeRightAction:(UISwipeGestureRecognizer*)recognizer
+{
+    NSLog(@"swipe right");
+    [self hellYeahNextWebView];
+}
+
+- (void)swipeLeftAction:(UISwipeGestureRecognizer*)recognizer
+{
+    NSLog(@"swipe left");
+    [self nextWebView];
+}
+/*
+
+- (IBAction)swipeRight:(id)sender {
     [self nextWebView];
 }
 
+- (IBAction)swipeLeft:(id)sender {
+    [self nextWebView];
+}
+ */
 @end
