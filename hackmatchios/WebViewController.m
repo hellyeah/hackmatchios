@@ -7,6 +7,7 @@
 //
 
 #import "WebViewController.h"
+#import "NSMutableArray_Shuffling.h"
 
 
 @interface WebViewController ()
@@ -30,7 +31,8 @@
     self.index = 0;
     //self.navigationController.toolbarHidden = NO;
     //hard code first value
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
+    //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
 	[self.webView loadRequest:urlRequest];
     
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
@@ -46,6 +48,8 @@
                 [self.startups addObject:[NSURL URLWithString:[startupDictionary objectForKey:@"url"]]];
                 //refresh data
             }
+            //shuffle around startups so they aren't in the same order -- first startup is still hard coded
+            [self.startups shuffle];
             // Do something with the found objects
             for (PFObject *object in objects) {
                 //NSLog(@"%@", object.objectId);
@@ -88,6 +92,25 @@
 }
 
 - (IBAction)hellYeah:(UIBarButtonItem *)sender {
+    //check if there is data cached for userEmail and userUrl
+    //if there isn't, drop down a view that collects that data once and caches it
+
+    //try one
+    /*
+    CGRect frame = YourView.frame;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:1.0];
+    
+    frame.origin.x = 0; //
+    pushView.frame = frame;
+    self.YourView.frame = CGRectMake(250, 45, 500, 960);
+    [UIView commitAnimations];
+     */
+    //
+    
+    
+    
+    
     //save interest interaction object
     PFObject *hellYeah = [PFObject objectWithClassName:@"interest"];
     //substitue with the email they enter at the beginning

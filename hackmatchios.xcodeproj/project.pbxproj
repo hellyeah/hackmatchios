@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F2F572018A67D970044BA1A /* NSMutableArray_Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSMutableArray_Shuffling.h; path = ../NSMutableArray_Shuffling.h; sourceTree = "<group>"; };
 		6FE92902189525530089AFB9 /* hackmatchios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackmatchios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE92905189525530089AFB9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6FE92907189525530089AFB9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -152,6 +153,7 @@
 		6FE9290B189525530089AFB9 /* hackmatchios */ = {
 			isa = PBXGroup;
 			children = (
+				6F2F572018A67D970044BA1A /* NSMutableArray_Shuffling.h */,
 				6FE92914189525530089AFB9 /* AppDelegate.h */,
 				6FE92915189525530089AFB9 /* AppDelegate.m */,
 				6FE92951189528820089AFB9 /* WebViewController.h */,
@@ -508,6 +510,7 @@
 				6FE92936189525530089AFB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6FE92937189525530089AFB9 /* Build configuration list for PBXNativeTarget "hackmatchiosTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +519,7 @@
 				6FE92939189525530089AFB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
