@@ -33,7 +33,8 @@
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
 	[self.webView loadRequest:urlRequest];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"post"];
+    PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
+    [query setLimit: 1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -88,13 +89,13 @@
 
 - (IBAction)hellYeah:(UIBarButtonItem *)sender {
     //save interest interaction object
-    PFObject *hellYeah = [PFObject objectWithClassName:@"HellYeah"];
-    hellYeah[@"hackerURL"] = @"http://rjvir.com";
-    hellYeah[@"companyURL"] = [self.startups objectAtIndex:self.index];
+    PFObject *hellYeah = [PFObject objectWithClassName:@"interest"];
+    //substitue with the email they enter at the beginning
+    hellYeah[@"contactEmail"] = @"raj@rjvir.com";
+    hellYeah[@"startupURL"] = [[self.startups objectAtIndex:self.index] absoluteString];
     [hellYeah saveInBackground];
     //then do nextWebView
     [self nextWebView];
-
 }
 
 @end
