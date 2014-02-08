@@ -37,6 +37,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
     [query setLimit: 1000];
+    [query whereKey:@"tags" equalTo:@"mobile"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -69,6 +70,8 @@
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     swipeLeft.delegate = self;
     [self.webView addGestureRecognizer:swipeLeft];
+    
+    //<meta name="viewport" content="width=device-width" />
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
