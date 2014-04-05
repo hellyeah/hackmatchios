@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F12617C18D91E8D00D3D8A4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12617B18D91E8D00D3D8A4 /* Social.framework */; };
+		6F12617E18D91F8100D3D8A4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12617D18D91F8100D3D8A4 /* FacebookSDK.framework */; };
+		6F12618018D91FA500D3D8A4 /* Apptimize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12617F18D91FA500D3D8A4 /* Apptimize.framework */; };
 		6FE92906189525530089AFB9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE92905189525530089AFB9 /* Foundation.framework */; };
 		6FE92908189525530089AFB9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE92907189525530089AFB9 /* CoreGraphics.framework */; };
 		6FE9290A189525530089AFB9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE92909189525530089AFB9 /* UIKit.framework */; };
@@ -44,6 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F12617B18D91E8D00D3D8A4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		6F12617D18D91F8100D3D8A4 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		6F12617F18D91FA500D3D8A4 /* Apptimize.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Apptimize.framework; path = "../../../Downloads/apptimize-ios-2.0.0/Apptimize.framework"; sourceTree = "<group>"; };
 		6F2F572018A67D970044BA1A /* NSMutableArray_Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSMutableArray_Shuffling.h; path = ../NSMutableArray_Shuffling.h; sourceTree = "<group>"; };
 		6FE92902189525530089AFB9 /* hackmatchios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackmatchios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE92905189525530089AFB9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -81,7 +87,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F12617C18D91E8D00D3D8A4 /* Social.framework in Frameworks */,
 				6FE9294B1895278A0089AFB9 /* SystemConfiguration.framework in Frameworks */,
+				6F12618018D91FA500D3D8A4 /* Apptimize.framework in Frameworks */,
 				6FE92949189527840089AFB9 /* StoreKit.framework in Frameworks */,
 				6FE929471895277C0089AFB9 /* Security.framework in Frameworks */,
 				6FE92945189527360089AFB9 /* QuartzCore.framework in Frameworks */,
@@ -91,6 +99,7 @@
 				6FE9293F1895271A0089AFB9 /* CoreLocation.framework in Frameworks */,
 				6FE92908189525530089AFB9 /* CoreGraphics.framework in Frameworks */,
 				6FE9293D189526F70089AFB9 /* CFNetwork.framework in Frameworks */,
+				6F12617E18D91F8100D3D8A4 /* FacebookSDK.framework in Frameworks */,
 				6FE9293B189526EE0089AFB9 /* AudioToolbox.framework in Frameworks */,
 				6FE9290A189525530089AFB9 /* UIKit.framework in Frameworks */,
 				6FE92906189525530089AFB9 /* Foundation.framework in Frameworks */,
@@ -132,6 +141,9 @@
 		6FE92904189525530089AFB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F12617F18D91FA500D3D8A4 /* Apptimize.framework */,
+				6F12617D18D91F8100D3D8A4 /* FacebookSDK.framework */,
+				6F12617B18D91E8D00D3D8A4 /* Social.framework */,
 				6FE9294C189527F10089AFB9 /* Parse.framework */,
 				6FE9294A1895278A0089AFB9 /* SystemConfiguration.framework */,
 				6FE92948189527840089AFB9 /* StoreKit.framework */,
@@ -423,10 +435,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/gailees/Dropbox/Projects/hackmatchios,
+					"/Users/gailees/Downloads/apptimize-ios-2.0.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "hackmatchios/hackmatchios-Prefix.pch";
 				INFOPLIST_FILE = "hackmatchios/hackmatchios-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -440,10 +454,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/gailees/Dropbox/Projects/hackmatchios,
+					"/Users/gailees/Downloads/apptimize-ios-2.0.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "hackmatchios/hackmatchios-Prefix.pch";
 				INFOPLIST_FILE = "hackmatchios/hackmatchios-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

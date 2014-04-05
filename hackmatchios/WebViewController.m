@@ -8,6 +8,7 @@
 
 #import "WebViewController.h"
 #import "NSMutableArray_Shuffling.h"
+#import <Apptimize/Apptimize.h>
 
 
 @interface WebViewController ()
@@ -29,6 +30,7 @@
 {
     [super viewDidLoad];
     self.index = 0;
+    self.webView.delegate = self;
     //self.navigationController.toolbarHidden = NO;
     //hard code first value
     //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
@@ -76,6 +78,11 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     NSLog(@"web view did start load");
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
+    NSLog(@"blah"); 
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

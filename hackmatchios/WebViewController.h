@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface WebViewController : UIViewController
+@interface WebViewController : UIViewController<UIWebViewDelegate> {
+
+}
 
 //**Startup Data
 //counter to keep track of which startup we are on
