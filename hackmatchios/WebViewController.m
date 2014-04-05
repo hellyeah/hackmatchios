@@ -30,13 +30,27 @@
 {
     [super viewDidLoad];
     self.index = 0;
+    
+    UIWebView *webView = [[UIWebView alloc] init];
+    webView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    
+    //hard code first value
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
+    
+    [webView loadRequest:urlRequest];
+    
+    [self.view addSubview:webView];
+    
+    //setting constraints so that webview doesnt overlap with [top] and [bottom]
+    //webviews automatically account for them
+    NSDictionary *views = @{ @"web": webView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
+
+    //these don't seem to be working anymore
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
-    //self.navigationController.toolbarHidden = NO;
-    //hard code first value
-    //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
-	[self.webView loadRequest:urlRequest];
     
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
     [query setLimit: 1000];
