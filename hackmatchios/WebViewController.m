@@ -31,6 +31,7 @@
     [super viewDidLoad];
     self.index = 0;
     self.webView.delegate = self;
+    self.webView.scrollView.delegate = self;
     //self.navigationController.toolbarHidden = NO;
     //hard code first value
     //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lob.com"]];
@@ -81,12 +82,17 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    //need to disable horizontal scrolling
     [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
-    NSLog(@"blah"); 
+    NSLog(@"blah");
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"web view load error");
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
 }
 
 - (void)didReceiveMemoryWarning
