@@ -36,7 +36,7 @@
     NSMutableArray *webViews = [[NSMutableArray alloc] init];
     self.webViews = webViews;
     
-    [self initializeWebViews];
+    //[self initializeWebViews];
     
     WebView *webView = [[WebView alloc] init];
     self.webView = webView;
@@ -46,6 +46,7 @@
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
     
     [webView loadRequest:urlRequest];
+    [webViews addObject:webView];
     
     
     //********WEBVIEW2******//
@@ -57,6 +58,7 @@
     NSURLRequest *urlRequest2 = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://uber.com"]];
     
     [webView2 loadRequest:urlRequest2];
+    [webViews addObject:webView2];
     
     //**trying to put webview into scrollview
     //[self.view addSubview:webView];
@@ -95,7 +97,7 @@
     
     //initialize array
     //works with only one site, but not multiple
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < self.webViews.count; i++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;
         frame.origin.y = 0;
@@ -106,15 +108,8 @@
         //NSLog(@"%@", urlRequest);
         //[subview loadRequest:urlRequest];
         //subview.frame = frame;
-        if(i==0) {
-            //[[self.webViews objectAtIndex:i] setFrame: frame];
-            webView.frame = frame;
-            [self.scrollView addSubview:webView];
-        }
-        else {
-            webView2.frame = frame;
-            [self.scrollView addSubview:webView2];
-        }
+        [[self.webViews objectAtIndex:i] setFrame: frame];
+        [self.scrollView addSubview:[self.webViews objectAtIndex:i]];
     }
 
     //2 has to be whatever number of sites there is
