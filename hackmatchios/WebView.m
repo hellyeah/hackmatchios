@@ -18,6 +18,18 @@
     }
     self.scalesPageToFit = YES;
     self.scrollView.delegate = self;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.delegate = self;
+    [self addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    swipeLeft.delegate = self;
+    [self addGestureRecognizer:swipeLeft];
+    
     return self;
 }
 

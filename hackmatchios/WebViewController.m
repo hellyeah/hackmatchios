@@ -31,8 +31,9 @@
     [super viewDidLoad];
     self.index = 0;
     
+    //array of webviews
+    
     WebView *webView = [[WebView alloc] init];
-    webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     //hard code first value
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
@@ -81,15 +82,7 @@
         }
     }];
     
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    swipeRight.delegate = self;
-    [self.webView addGestureRecognizer:swipeRight];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    swipeLeft.delegate = self;
-    [self.webView addGestureRecognizer:swipeLeft];
+    [self inititializeGestures:webView];
     
     //<meta name="viewport" content="width=device-width" />
 }
@@ -98,6 +91,50 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+- (void) addStartupToArray:(NSURL *) startupUrl {
+    WebView *webView = [[WebView alloc] init];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:startupUrl];
+    [webView loadRequest:urlRequest];
+    
+    //setting constraints so that webview doesnt overlap with [top] and [bottom]
+    //webviews automatically account for them
+    NSDictionary *views = @{ @"web": webView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
+    
+    [self addWebViewtoWebViews:webView];
+}
+
+- (void) addWebViewtoWebViews:(WebView *) webView {
+    [self.webViews addObject: webView];
+}
+
+- (void) initializeWebViews {
+    for (int i=0; i<3; i++) {
+        [self addStartupToArray:[self.startups objectAtIndex:i]];
+    }
+}
+
+//shift by popping first element from array
+- (void) removeWebViewtoWebViews {
+    [self.webViews removeObjectAtIndex:0];
+}
+
+//need to take webview as an input
+- (void) inititializeGestures:(WebView *) webView {
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.delegate = self;
+    [webView addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    swipeLeft.delegate = self;
+    [webView addGestureRecognizer:swipeLeft];
 }
 
 - (void) nextWebView {

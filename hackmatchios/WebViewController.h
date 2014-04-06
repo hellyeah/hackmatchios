@@ -15,7 +15,9 @@
 
 }
 
+@property (strong, nonatomic) NSMutableArray *webViews;
 @property (strong, nonatomic) WebView *webView;
+
 
 //**Startup Data
 //counter to keep track of which startup we are on
