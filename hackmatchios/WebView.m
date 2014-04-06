@@ -16,6 +16,7 @@
     if (self) {
         // Initialization code
     }
+    self.scalesPageToFit = YES;
     self.scrollView.delegate = self;
     return self;
 }

@@ -85,12 +85,12 @@
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     swipeRight.delegate = self;
-    [webView addGestureRecognizer:swipeRight];
+    [self.webView addGestureRecognizer:swipeRight];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     swipeLeft.delegate = self;
-    [webView addGestureRecognizer:swipeLeft];
+    [self.webView addGestureRecognizer:swipeLeft];
     
     //<meta name="viewport" content="width=device-width" />
 }
@@ -101,7 +101,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     //need to disable horizontal scrolling
-    [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
+    [self.webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
     NSLog(@"blah");
 }
 
@@ -127,7 +127,7 @@
     }
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
 	[self.webView loadRequest:urlRequest];
-    [self.webView loadRequest:urlRequest];
+    //[self.webView loadRequest:urlRequest];
 
     NSLog(@"%@", [self.startups objectAtIndex:self.index]);
 }
