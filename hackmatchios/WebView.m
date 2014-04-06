@@ -20,6 +20,7 @@
     self.scrollView.delegate = self;
     self.translatesAutoresizingMaskIntoConstraints = NO;
     
+    /*
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     swipeRight.delegate = self;
@@ -29,6 +30,7 @@
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     swipeLeft.delegate = self;
     [self addGestureRecognizer:swipeLeft];
+     */
     
     return self;
 }

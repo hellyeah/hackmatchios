@@ -33,22 +33,100 @@
     [self loadStartupsFromParse];
     
     //array of webviews
+    NSMutableArray *webViews = [[NSMutableArray alloc] init];
+    self.webViews = webViews;
+    
+    [self initializeWebViews];
     
     WebView *webView = [[WebView alloc] init];
     self.webView = webView;
+    //WebView *webView = self.webView;
     
     //hard code first value
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
     
     [webView loadRequest:urlRequest];
     
-    [self.view addSubview:webView];
+    
+    //********WEBVIEW2******//
+    WebView *webView2 = [[WebView alloc] init];
+    self.webView2 = webView2;
+    //WebView *webView = self.webView;
+    
+    //hard code first value
+    NSURLRequest *urlRequest2 = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://uber.com"]];
+    
+    [webView2 loadRequest:urlRequest2];
+    
+    //**trying to put webview into scrollview
+    //[self.view addSubview:webView];
+    
+    //UIScrollView *scrollView = [[UIScrollView alloc] init];
+    //self.scrollView = scrollView;
+    //self.scrollView = scrollView;
+    [self.view addSubview:self.scrollView];
+    //self.scrollView = scrollView;
+    
+    /*
+    NSArray *colors = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor], [UIColor blueColor], nil];
+    for (int i = 0; i < colors.count; i++) {
+        CGRect frame;
+        frame.origin.x = self.scrollView.frame.size.width * i;
+        frame.origin.y = 0;
+        frame.size = self.scrollView.frame.size;
+        
+        UIView *subview = [[UIView alloc] initWithFrame:frame];
+        subview.backgroundColor = [colors objectAtIndex:i];
+        [self.scrollView addSubview:subview];
+    }
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
+     */
+
+    /*
+    CGRect frame;
+    frame.origin.x = self.scrollView.frame.size.width * 0;
+    frame.origin.y = 0;
+    frame.size = self.scrollView.frame.size;
+    webView.frame = frame;
+    
+    [self.scrollView addSubview:webView];
+     */
+    
+    //initialize array
+    //works with only one site, but not multiple
+    for (int i = 0; i < 2; i++) {
+        CGRect frame;
+        frame.origin.x = self.scrollView.frame.size.width * i;
+        frame.origin.y = 0;
+        frame.size = self.scrollView.frame.size;
+        
+        //WebView *subview = [[WebView alloc] init];
+        //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:i]];
+        //NSLog(@"%@", urlRequest);
+        //[subview loadRequest:urlRequest];
+        //subview.frame = frame;
+        if(i==0) {
+            //[[self.webViews objectAtIndex:i] setFrame: frame];
+            webView.frame = frame;
+            [self.scrollView addSubview:webView];
+        }
+        else {
+            webView2.frame = frame;
+            [self.scrollView addSubview:webView2];
+        }
+    }
+
+    //2 has to be whatever number of sites there is
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 2, self.scrollView.frame.size.height);
     
     //setting constraints so that webview doesnt overlap with [top] and [bottom]
     //webviews automatically account for them
-    NSDictionary *views = @{ @"web": webView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
+    /*
+    NSDictionary *views = @{ @"web": scrollView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
+     */
     
     //**use webviews array by instantiating webview by webview
     //when someone hits next just throw away that webView and instantiate a new one to add to the queue
@@ -58,7 +136,7 @@
     
 
     
-    [self inititializeGestures:webView];
+    //[self inititializeGestures:webView];
     
     //<meta name="viewport" content="width=device-width" />
 }
@@ -98,18 +176,15 @@
     }];
 }
 
-
-
 - (void) addStartupToArray:(NSURL *) startupUrl {
     WebView *webView = [[WebView alloc] init];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:startupUrl];
-    [webView loadRequest:urlRequest];
+    self.webView = webView;
+    //WebView *webView = self.webView;
     
-    //setting constraints so that webview doesnt overlap with [top] and [bottom]
-    //webviews automatically account for them
-    NSDictionary *views = @{ @"web": webView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
+    //hard code first value
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:startupUrl];
+    
+    [webView loadRequest:urlRequest];
     
     [self addWebViewtoWebViews:webView];
 }

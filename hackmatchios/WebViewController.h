@@ -14,9 +14,11 @@
 @interface WebViewController : UIViewController<UIWebViewDelegate, UIScrollViewDelegate> {
 
 }
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) NSMutableArray *webViews;
 @property (strong, nonatomic) WebView *webView;
+@property (strong, nonatomic) WebView *webView2;
 
 
 //**Startup Data
