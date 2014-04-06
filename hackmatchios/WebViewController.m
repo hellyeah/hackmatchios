@@ -30,10 +30,12 @@
 {
     [super viewDidLoad];
     self.index = 0;
+    [self loadStartupsFromParse];
     
     //array of webviews
     
     WebView *webView = [[WebView alloc] init];
+    self.webView = webView;
     
     //hard code first value
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
@@ -50,11 +52,24 @@
     
     //**use webviews array by instantiating webview by webview
     //when someone hits next just throw away that webView and instantiate a new one to add to the queue
-    self.webView = webView;
     
     //take the first 4, make 4 webviews
     //use queue and always be hiding all views but the first view and showing the first view in the queue
     
+
+    
+    [self inititializeGestures:webView];
+    
+    //<meta name="viewport" content="width=device-width" />
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void) loadStartupsFromParse {
     //load startups from parse
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
     [query setLimit: 1000];
@@ -81,16 +96,6 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    
-    [self inititializeGestures:webView];
-    
-    //<meta name="viewport" content="width=device-width" />
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
