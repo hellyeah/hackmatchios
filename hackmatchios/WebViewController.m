@@ -11,7 +11,10 @@
 #import <Apptimize/Apptimize.h>
 
 
-@interface WebViewController ()
+@interface WebViewController () {
+    NSInteger _previousPage;
+    NSInteger _currentPage;
+}
 
 @end
 
@@ -21,84 +24,22 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.index = 0;
+    
     [self loadStartupsFromParse];
     
     //array of webviews
-    NSMutableArray *webViews = [[NSMutableArray alloc] init];
-    self.webViews = webViews;
-    
+    self.webViews = [[NSMutableArray alloc] init];
+    //NSLog(@"%@", self.startups);
+
     //[self initializeWebViews];
     
-    [self addStartupToArray:[NSURL URLWithString:@"http://tinder.com"]];
-    [self addStartupToArray:[NSURL URLWithString:@"http://uber.com"]];
-    
-    //**trying to put webview into scrollview
-    //[self.view addSubview:webView];
-    
-    //UIScrollView *scrollView = [[UIScrollView alloc] init];
-    //self.scrollView = scrollView;
-    //self.scrollView = scrollView;
-    [self.view addSubview:self.scrollView];
-    //self.scrollView = scrollView;
-    
-    /*
-    NSArray *colors = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor], [UIColor blueColor], nil];
-    for (int i = 0; i < colors.count; i++) {
-        CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
-        frame.origin.y = 0;
-        frame.size = self.scrollView.frame.size;
-        
-        UIView *subview = [[UIView alloc] initWithFrame:frame];
-        subview.backgroundColor = [colors objectAtIndex:i];
-        [self.scrollView addSubview:subview];
-    }
-    
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
-     */
-
-    /*
-    CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * 0;
-    frame.origin.y = 0;
-    frame.size = self.scrollView.frame.size;
-    webView.frame = frame;
-    
-    [self.scrollView addSubview:webView];
-     */
-    
-    //initialize array
-    //works with only one site, but not multiple
-    /*
-    for (int i = 0; i < self.webViews.count; i++) {
-        CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
-        frame.origin.y = 0;
-        frame.size = self.scrollView.frame.size;
-        
-        //WebView *subview = [[WebView alloc] init];
-        //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:i]];
-        //NSLog(@"%@", urlRequest);
-        //[subview loadRequest:urlRequest];
-        //subview.frame = frame;
-        [[self.webViews objectAtIndex:i] setFrame: frame];
-        [self.scrollView addSubview:[self.webViews objectAtIndex:i]];
-    }
-
-    //2 has to be whatever number of sites there is
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 2, self.scrollView.frame.size.height);
-     */
-    [self initializeWebViews];
-    
+    self.scrollView.delegate = self;
     //setting constraints so that webview doesnt overlap with [top] and [bottom]
     //webviews automatically account for them
     /*
@@ -113,41 +54,28 @@
     //take the first 4, make 4 webviews
     //use queue and always be hiding all views but the first view and showing the first view in the queue
     
-
-    
-    //[self inititializeGestures:webView];
-    
-    //<meta name="viewport" content="width=device-width" />
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidLayoutSubviews {
+    self.scrollView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0);
 }
 
 - (void) loadStartupsFromParse {
     //load startups from parse
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
-    [query setLimit: 1000];
+    [query setLimit:1000];
     [query whereKey:@"tags" equalTo:@"mobile"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
             NSLog(@"Successfully retrieved %d scores.", objects.count);
-            self.startups = [NSMutableArray array];
-            
-            for (NSDictionary *startupDictionary in objects) {
-                //NSLog(@"%@", [NSURL URLWithString:[bpDictionary objectForKey:@"url"]]);
-                [self.startups addObject:[NSURL URLWithString:[startupDictionary objectForKey:@"url"]]];
-                //refresh data
-            }
-            //shuffle around startups so they aren't in the same order -- first startup is still hard coded
-            [self.startups shuffle];
-            // Do something with the found objects
-            for (PFObject *object in objects) {
-                //NSLog(@"%@", object.objectId);
-            }
+            NSMutableArray *mutableObjects = [objects mutableCopy];
+            [mutableObjects shuffle];
+            self.startups = [[mutableObjects valueForKey:@"url"] mutableCopy];
+            [self loadWebViewAtIndex:0];
+            [self loadWebViewAtIndex:1];
+            [self.scrollView setContentOffset:CGPointZero animated:NO];
+            NSLog(@"%@", self.startups);
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -155,41 +83,66 @@
     }];
 }
 
-- (void) addStartupToArray:(NSURL *) startupUrl {
-    WebView *webView = [[WebView alloc] init];
-    self.webView = webView;
-    //WebView *webView = self.webView;
-    
-    //hard code first value
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:startupUrl];
-    
-    [webView loadRequest:urlRequest];
-    
-    [self addWebViewtoWebViews:webView];
-}
-
-- (void) addWebViewtoWebViews:(WebView *) webView {
-    [self.webViews addObject: webView];
-}
-
-- (void) initializeWebViews {
-    for (int i = 0; i < self.webViews.count; i++) {
-        CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
-        frame.origin.y = 0;
-        frame.size = self.scrollView.frame.size;
-        
-        //WebView *subview = [[WebView alloc] init];
-        //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:i]];
-        //NSLog(@"%@", urlRequest);
-        //[subview loadRequest:urlRequest];
-        //subview.frame = frame;
-        [[self.webViews objectAtIndex:i] setFrame: frame];
-        [self.scrollView addSubview:[self.webViews objectAtIndex:i]];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (![self.scrollView isEqual:scrollView]) {
+        [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, scrollView.contentSize.height)];
+        scrollView.showsHorizontalScrollIndicator = NO;
+    } else {
+        [scrollView setContentSize:CGSizeMake(scrollView.contentSize.width, scrollView.frame.size.height)];
+        scrollView.showsVerticalScrollIndicator = NO;
     }
-    
-    //2 has to be whatever number of sites there is
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 2, self.scrollView.frame.size.height);
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (![self.scrollView isEqual:scrollView])
+        return;
+
+    CGPoint newContentOffset = *targetContentOffset;
+    NSInteger page = lround(newContentOffset.x / scrollView.frame.size.width);
+
+    if (page != _currentPage) {
+        if (page - 1 >= 0) {
+            [self loadWebViewAtIndex:(page - 1)];
+        }
+        if (page + 1 < self.startups.count) {
+            [self loadWebViewAtIndex:(page + 1)];
+        }
+    }
+
+    _previousPage = _currentPage;
+    _currentPage = page;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if ([self.scrollView isEqual:scrollView]) {
+        UIWebView *webView = self.webViews[_previousPage];
+        webView.scrollView.contentOffset = CGPointZero;
+    }
+}
+
+- (void)loadWebViewAtIndex:(NSInteger)index {
+    if ((index == self.webViews.count) || ![self.webViews[index] isKindOfClass:[UIWebView class]]) {
+        UIWebView *webView = [[UIWebView alloc] init];
+        webView.scalesPageToFit = YES;
+        webView.scrollView.delegate = self;
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.startups[index]]];
+        [webView loadRequest:request];
+
+        CGSize scrollViewSize = self.scrollView.frame.size;
+        webView.frame = CGRectMake(scrollViewSize.width * index, 0, scrollViewSize.width, scrollViewSize.height);
+        webView.frame = UIEdgeInsetsInsetRect(webView.frame, self.scrollView.contentInset);
+        [self.scrollView addSubview:webView];
+        self.webViews[index] = webView;
+        self.scrollView.contentSize = CGSizeMake(scrollViewSize.width * self.webViews.count, scrollViewSize.height);
+    }
+}
+
+- (void)unloadWebViewAtIndex:(NSInteger)index {
+    if (![self.webViews[index] isEqual:[NSNull null]]) {
+        UIWebView *webView = self.webViews[index];
+        [webView removeFromSuperview];
+        self.webViews[index] = [NSNull null];
+    }
 }
 
 //shift by popping first element from array
