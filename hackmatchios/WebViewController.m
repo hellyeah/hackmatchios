@@ -46,16 +46,15 @@
     NSDictionary *views = @{ @"web": webView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
-
-    //these don't seem to be working anymore
-    webView.delegate = self;
-    //have to do this in every single webView I instantiate
-    webView.scrollView.delegate = self;
-    //take webviews
+    
+    //**use webviews array by instantiating webview by webview
+    //when someone hits next just throw away that webView and instantiate a new one to add to the queue
     self.webView = webView;
     
     //take the first 4, make 4 webviews
+    //use queue and always be hiding all views but the first view and showing the first view in the queue
     
+    //load startups from parse
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
     [query setLimit: 1000];
     [query whereKey:@"tags" equalTo:@"mobile"];
@@ -95,29 +94,11 @@
     //<meta name="viewport" content="width=device-width" />
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"web view did start load");
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    //need to disable horizontal scrolling
-    [self.webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
-    NSLog(@"blah");
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"web view load error");
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//- (IBAction)next:(id)sender {
-    //go to the next webview
-//}
 
 - (void) nextWebView {
     if (self.index >= self.startups.count - 1) {

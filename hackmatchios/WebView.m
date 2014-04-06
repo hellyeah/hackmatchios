@@ -22,9 +22,31 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
+    //for some reason this way didn't recognize the swipe gesture for some startups
+    //[scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
+    
+    //this way worked to disable horizontal scrolling
+    [scrollView setContentSize: CGSizeMake(self.frame.size.width, self.scrollView.contentSize.height)];
+    
+    //getting rid of the horizontal scroll indicator since theres no horizontal scrolling
     scrollView.showsHorizontalScrollIndicator = NO;
 }
+
+/*
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    NSLog(@"web view did start load");
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    //need to disable horizontal scrolling
+    [self.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
+    NSLog(@"blah");
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"web view load error");
+}
+*/
 
 /*
 // Only override drawRect: if you perform custom drawing.
