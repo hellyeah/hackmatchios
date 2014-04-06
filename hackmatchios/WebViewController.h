@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
+#import "WebView.h";
+
 @interface WebViewController : UIViewController<UIWebViewDelegate, UIScrollViewDelegate> {
 
 }
+
+@property (strong, nonatomic) WebView *webView;
 
 //**Startup Data
 //counter to keep track of which startup we are on
@@ -23,9 +27,6 @@
 //url attribute of each item in the startups array
 @property (strong, nonatomic) NSURL *startupURL;
 
-//**Storyboard Objects
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
-//- (IBAction)next:(id)sender;
 - (IBAction)next:(UIBarButtonItem *)sender;
 - (IBAction)hellYeah:(UIBarButtonItem *)sender;
 

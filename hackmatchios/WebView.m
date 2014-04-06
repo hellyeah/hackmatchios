@@ -16,7 +16,13 @@
     if (self) {
         // Initialization code
     }
+    self.scrollView.delegate = self;
     return self;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
+    scrollView.showsHorizontalScrollIndicator = NO;
 }
 
 /*

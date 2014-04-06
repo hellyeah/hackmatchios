@@ -31,9 +31,8 @@
     [super viewDidLoad];
     self.index = 0;
     
-    UIWebView *webView = [[UIWebView alloc] init];
+    WebView *webView = [[WebView alloc] init];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
-    
     
     //hard code first value
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
@@ -49,8 +48,13 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
 
     //these don't seem to be working anymore
-    self.webView.delegate = self;
-    self.webView.scrollView.delegate = self;
+    webView.delegate = self;
+    //have to do this in every single webView I instantiate
+    webView.scrollView.delegate = self;
+    //take webviews
+    self.webView = webView;
+    
+    //take the first 4, make 4 webviews
     
     PFQuery *query = [PFQuery queryWithClassName:@"sponsorSites"];
     [query setLimit: 1000];
@@ -81,12 +85,12 @@
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     swipeRight.delegate = self;
-    [self.webView addGestureRecognizer:swipeRight];
+    [webView addGestureRecognizer:swipeRight];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     swipeLeft.delegate = self;
-    [self.webView addGestureRecognizer:swipeLeft];
+    [webView addGestureRecognizer:swipeLeft];
     
     //<meta name="viewport" content="width=device-width" />
 }
@@ -103,10 +107,6 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"web view load error");
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,7 +127,8 @@
     }
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
 	[self.webView loadRequest:urlRequest];
-    
+    [self.webView loadRequest:urlRequest];
+
     NSLog(@"%@", [self.startups objectAtIndex:self.index]);
 }
 
