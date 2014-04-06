@@ -38,27 +38,8 @@
     
     //[self initializeWebViews];
     
-    WebView *webView = [[WebView alloc] init];
-    self.webView = webView;
-    //WebView *webView = self.webView;
-    
-    //hard code first value
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://secret.ly"]];
-    
-    [webView loadRequest:urlRequest];
-    [webViews addObject:webView];
-    
-    
-    //********WEBVIEW2******//
-    WebView *webView2 = [[WebView alloc] init];
-    self.webView2 = webView2;
-    //WebView *webView = self.webView;
-    
-    //hard code first value
-    NSURLRequest *urlRequest2 = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://uber.com"]];
-    
-    [webView2 loadRequest:urlRequest2];
-    [webViews addObject:webView2];
+    [self addStartupToArray:[NSURL URLWithString:@"http://tinder.com"]];
+    [self addStartupToArray:[NSURL URLWithString:@"http://uber.com"]];
     
     //**trying to put webview into scrollview
     //[self.view addSubview:webView];
@@ -97,6 +78,7 @@
     
     //initialize array
     //works with only one site, but not multiple
+    /*
     for (int i = 0; i < self.webViews.count; i++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;
@@ -114,6 +96,8 @@
 
     //2 has to be whatever number of sites there is
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 2, self.scrollView.frame.size.height);
+     */
+    [self initializeWebViews];
     
     //setting constraints so that webview doesnt overlap with [top] and [bottom]
     //webviews automatically account for them
@@ -189,9 +173,23 @@
 }
 
 - (void) initializeWebViews {
-    for (int i=0; i<3; i++) {
-        [self addStartupToArray:[self.startups objectAtIndex:i]];
+    for (int i = 0; i < self.webViews.count; i++) {
+        CGRect frame;
+        frame.origin.x = self.scrollView.frame.size.width * i;
+        frame.origin.y = 0;
+        frame.size = self.scrollView.frame.size;
+        
+        //WebView *subview = [[WebView alloc] init];
+        //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:i]];
+        //NSLog(@"%@", urlRequest);
+        //[subview loadRequest:urlRequest];
+        //subview.frame = frame;
+        [[self.webViews objectAtIndex:i] setFrame: frame];
+        [self.scrollView addSubview:[self.webViews objectAtIndex:i]];
     }
+    
+    //2 has to be whatever number of sites there is
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 2, self.scrollView.frame.size.height);
 }
 
 //shift by popping first element from array
