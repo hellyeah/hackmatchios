@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-#import "WebView.h";
+#import "WebView.h"
 
 @interface WebViewController : UIViewController<UIWebViewDelegate, UIScrollViewDelegate> {
 
@@ -18,7 +18,6 @@
 
 @property (strong, nonatomic) NSMutableArray *webViews;
 @property (strong, nonatomic) WebView *webView;
-@property (strong, nonatomic) WebView *webView2;
 
 
 //**Startup Data
@@ -31,7 +30,6 @@
 //url attribute of each item in the startups array
 @property (strong, nonatomic) NSURL *startupURL;
 
-- (IBAction)next:(UIBarButtonItem *)sender;
 - (IBAction)hellYeah:(UIBarButtonItem *)sender;
 
 //**User Data

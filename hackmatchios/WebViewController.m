@@ -35,24 +35,10 @@
     
     //array of webviews
     self.webViews = [[NSMutableArray alloc] init];
-    //NSLog(@"%@", self.startups);
-
-    //[self initializeWebViews];
     
     self.scrollView.delegate = self;
-    //setting constraints so that webview doesnt overlap with [top] and [bottom]
-    //webviews automatically account for them
-    /*
-    NSDictionary *views = @{ @"web": scrollView, @"top": self.topLayoutGuide, @"bottom": self.bottomLayoutGuide };
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
-     */
     
-    //**use webviews array by instantiating webview by webview
-    //when someone hits next just throw away that webView and instantiate a new one to add to the queue
-    
-    //take the first 4, make 4 webviews
-    //use queue and always be hiding all views but the first view and showing the first view in the queue
+    self.tabBarController.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
 }
 
@@ -150,30 +136,14 @@
     [self.webViews removeObjectAtIndex:0];
 }
 
-//need to take webview as an input
-- (void) inititializeGestures:(WebView *) webView {
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(swipeRightAction:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    swipeRight.delegate = self;
-    [webView addGestureRecognizer:swipeRight];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    swipeLeft.delegate = self;
-    [webView addGestureRecognizer:swipeLeft];
-}
-
 - (void) nextWebView {
-    if (self.index >= self.startups.count - 1) {
-        self.index = 0;
-    } else {
-        self.index++;
-    }
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
-	[self.webView loadRequest:urlRequest];
-    //[self.webView loadRequest:urlRequest];
-
-    NSLog(@"%@", [self.startups objectAtIndex:self.index]);
+    //now this just needs to content offset us to the next page with animation maybe?
+    //set content offset animated yes
+    //may need to abstract this out
+    CGSize scrollViewSize = self.scrollView.frame.size;
+    CGPoint contentOffset = CGPointMake(scrollViewSize.width * MIN(_currentPage + 1, self.startups.count - 1), 0);
+    [self.scrollView setContentOffset:contentOffset animated:YES];
+    [self scrollViewWillEndDragging:self.scrollView withVelocity:CGPointZero targetContentOffset:&contentOffset];
 }
 
 - (void) hellYeahNextWebView {
@@ -181,17 +151,10 @@
     PFObject *hellYeah = [PFObject objectWithClassName:@"interest"];
     //substitue with the email they enter at the beginning
     hellYeah[@"contactEmail"] = @"raj@rjvir.com";
-    hellYeah[@"startupURL"] = [[self.startups objectAtIndex:self.index] absoluteString];
+    NSLog(@"%@", [self.startups objectAtIndex:_currentPage]);
+    hellYeah[@"startupURL"] = [self.startups objectAtIndex:_currentPage];
     [hellYeah saveInBackground];
     //then do nextWebView
-    [self nextWebView];
-}
-
-- (IBAction)next:(UIBarButtonItem *)sender {
-    //increment to the next startup
-    //self.index++;
-    //NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.startups objectAtIndex:self.index]];
-	//[self.webView loadRequest:urlRequest];
     [self nextWebView];
 }
 
@@ -237,6 +200,19 @@
 {
     NSLog(@"swipe left");
     [self nextWebView];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"Startups"])
+    {
+        UITableViewController *tableViewController =
+        [segue destinationViewController];
+        
+        //[tableViewController setValue:_startups forKey:@"startups"];
+
+        NSLog(@"Startups Segue");
+    }
 }
 /*
 
